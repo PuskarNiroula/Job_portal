@@ -13,6 +13,7 @@
             backdrop-filter: blur(3px);
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
 
@@ -20,11 +21,11 @@
 <div id="overlay" class="overlay hidden fixed inset-0 z-30 md:hidden"></div>
 
 <div class="flex h-screen">
-<aside id="sidebar"
-       class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-white border-r border-gray-200 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+    <aside id="sidebar"
+           class="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-gray-200 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
 
     <!-- Top section -->
-    <div class="p-6 space-y-8">
+    <div class="p-6 space-y-8 ">
         <div class="flex items-center justify-between">
             <h1 class="text-2xl font-bold text-indigo-600 tracking-tight">
                 Job<span class="text-gray-700">Portal</span>
@@ -35,7 +36,7 @@
         </div>
 
         <nav class="space-y-1">
-            <a href="#"
+            <a href="{{route("emp.index")}}"
                class="flex items-center px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-50 hover:text-indigo-600 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
@@ -45,7 +46,7 @@
                 Dashboard
             </a>
 
-            <a href="#"
+            <a href="{{route("emp.create")}}"
                class="flex items-center px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-50 hover:text-indigo-600 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
@@ -86,7 +87,7 @@
     </div>
 </aside>
 
-<div class="flex-1 flex flex-col min-h-screen">
+<div class="flex-1 flex flex-col" style="margin-left:28vh">
 
     <header class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center sticky top-0 z-20">
         <div class="flex items-center space-x-3">

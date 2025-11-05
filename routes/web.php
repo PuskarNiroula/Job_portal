@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Emp\EmpController;
+use App\Http\Controllers\Emp\JobController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsUserAdmin;
 use App\Http\Controllers\Admin\AdminController;
@@ -31,6 +32,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(IsUserEmployer::class)->group(function () {
         Route::controller(EmpController::class)->group(callback: function () {
             Route::get('/employer', 'index')->name('emp.index');
+            Route::get('/employer/post_job', 'postJob')->name('emp.create');
+
+        });
+        Route::controller(JobController::class)->group( function () {
+            Route::post('/employer/store', 'store')->name('emp.store');
+            Route::delete('/employer/delete/{id}', 'delete')->name('emp.delete');
+            Route::get('/employer/getJobs', 'getJobs')->name('emp.getJobs');
+            Route::get('/employer/edit_job/{id}', 'edit')->name('emp.edit');
+            Route::patch('/employer/update_job', 'update')->name('emp.update');
         });
     });
 
