@@ -14,7 +14,7 @@ class IsUserEmployer
         if($user->role=="emp"){
             return $next($request);
         }
-        return response()->json(['message'=>'You are not admin'],403);
+        return response()->json(['message'=>'You are not employer'],403);
     }
 }
 
