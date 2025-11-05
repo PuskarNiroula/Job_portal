@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Emp\EmpController;
 use App\Http\Controllers\Emp\JobController;
+use App\Http\Controllers\Job\JobSeekerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsUserAdmin;
 use App\Http\Controllers\Admin\AdminController;
@@ -41,6 +42,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/employer/edit_job/{id}', 'edit')->name('emp.edit');
             Route::put('/employer/update_job/{id}', 'update')->name('emp.update');
         });
+    });
+
+    Route::controller(JobSeekerController::class)->group(function(){
+        Route::get('/jobseeker', 'index')->name('jobseeker.index');
+        Route::get('/jobseeker/getJobs', 'getJobs')->name('jobseeker.getJobs');
     });
 });
 

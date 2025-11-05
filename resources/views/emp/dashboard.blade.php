@@ -88,7 +88,6 @@
                 <button type="submit" class="bg-red-500 text-white rounded-lg font-semibold px-5 py-2 hover:bg-red-600 transition">Delete</button>
             </form>
 </td>
-
                     `;
                     tbody.appendChild(tr);
                 });
@@ -108,7 +107,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadJobs(); // Load first page
+            loadJobs();
         });
 
         document.getElementById('loadMoreBtn').addEventListener('click', () => {
