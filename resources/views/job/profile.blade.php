@@ -11,9 +11,8 @@
         </div>
     @endif
 
-    <form action="#" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-xl shadow-md max-w-2xl">
+    <form action="{{route("jobseeker.store")}}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-xl shadow-md max-w-2xl">
         @csrf
-
         <!-- Address -->
         <div class="mb-4">
             <label class="block font-medium text-gray-700 mb-1">Address</label>
@@ -50,7 +49,7 @@
             @error('cv') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Submit Button -->
+
         <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
             Save Profile
         </button>
