@@ -14,5 +14,8 @@ class JobSeekerController extends Controller {
                 ->paginate(6);
             return response()->json($jobs);
     }
+    public function completeProfile(){
+        return view('job.profile');
+    }
 
 }

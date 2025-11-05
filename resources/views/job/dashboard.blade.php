@@ -97,7 +97,6 @@
             // Simple scroll detection that definitely works
             wrapper.addEventListener('scroll', function() {
                 if (wrapper.scrollTop + wrapper.clientHeight >= wrapper.scrollHeight - 50) {
-                    console.log('Reached bottom, load more jobs');
                     loadJobs();
                 }
 
