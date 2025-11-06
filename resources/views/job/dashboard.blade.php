@@ -13,9 +13,11 @@
 
     <div id="loading" class="text-center text-gray-500 py-4">Loading jobs...</div>
         <div id="no-more" class="text-center text-gray-400 py-4 hidden">🎉 You've reached the end of jobs!</div>
-
+{{--    adding sweet alert--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        let token = `{{ csrf_token() }}`;
         document.addEventListener('DOMContentLoaded', () => {
             let page = 1;
             let isLoading = false;
@@ -65,13 +67,12 @@
                                 </div>
                             </div>
                             <div class="flex justify-end">
-                                <form method="POST" action="/seeker/apply/${job.id}">
-                                    @csrf
-                        <button type="submit"
-                            class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition">
+
+                                <button type="submit"
+                            class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition" onclick="jobApplication(${job.job_id})">
                             Apply
                         </button>
-                    </form>
+
                 </div>
 `;
                         jobFeed.appendChild(div);
@@ -104,5 +105,46 @@
 
 
         });
+
+        <!-- Include SweetAlert2 via CDN if not already included -->
+
+        async function jobApplication(id) {
+            // Show confirmation dialog
+            const result = await Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to apply for this job?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, apply',
+                cancelButtonText: 'Cancel'
+            });
+
+            // If user clicked 'Yes'
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`{{ route('jobseeker.application.apply') }}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token, // make sure token is defined
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ post_id: id })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        Swal.fire('Applied!', data.message, 'success');
+                    } else {
+                        Swal.fire('Error', data.message, 'error');
+                    }
+                } catch (error) {
+                    Swal.fire('Error', 'Something went wrong', 'error');
+                }
+            }
+        }
     </script>
 @endsection
