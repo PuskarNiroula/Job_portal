@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class JobSeekerController extends Controller {
 
+    public function index(){
+        return view('job.dashboard');
+    }
+
     public function getJobs(Request $request){
 
             $jobs = Job::with('user')
