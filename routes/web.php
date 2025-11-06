@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Emp\EmpController;
 use App\Http\Controllers\Emp\JobController;
+use App\Http\Controllers\Job\JobApplicationController;
 use App\Http\Controllers\Job\JobSeekerController;
 use App\Http\Controllers\Job\JobSeekerProfileController;
 use App\Http\Controllers\ProfileController;
@@ -55,6 +56,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::controller(JobSeekerProfileController::class)->group(function(){
             Route::post('/jobseeker/store', 'edit')->name('jobseeker.store');
             Route::get('/jobseeker/profile', 'view')->name('jobseeker.profile');
+        });
+
+        Route::controller(JobApplicationController::class)->group(function(){
+            Route::post('/jobseeker/applications/apply', 'apply')->name('jobseeker.application.apply');
+        });
+        Route::get('/test', function () {
+            return view('job.Dummy');
         });
     });
 });
