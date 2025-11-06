@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsUserAdmin;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Middleware\IsUserEmployer;
+use App\Http\Middleware\IsUserJobSeeker;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -45,13 +46,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    Route::controller(JobSeekerController::class)->group(function(){
-        Route::get('/jobseeker', 'index')->name('jobseeker.index');
-        Route::get('/jobseeker/getJobs', 'getJobs')->name('jobseeker.getJobs');
-        Route::get('/jobseeker/profile', 'completeProfile')->name('jobseeker.profile');
-    });
-    Route::controller(JobSeekerProfileController::class)->group(function(){
-        Route::post('/jobseeker/store', 'edit')->name('jobseeker.store');
+    Route::middleware(IsUserJobSeeker::class)->group(function () {
+        Route::controller(JobSeekerController::class)->group(function(){
+            Route::get('/jobseeker', 'index')->name('jobseeker.index');
+            Route::get('/jobseeker/getJobs', 'getJobs')->name('jobseeker.getJobs');
+            Route::get('/jobseeker/edit', 'completeProfile')->name('jobseeker.edit');
+        });
+        Route::controller(JobSeekerProfileController::class)->group(function(){
+            Route::post('/jobseeker/store', 'edit')->name('jobseeker.store');
+            Route::get('/jobseeker/profile', 'view')->name('jobseeker.profile');
+        });
     });
 });
 
