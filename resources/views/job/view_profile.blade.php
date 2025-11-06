@@ -15,7 +15,7 @@
         <div class="md:w-1/3 bg-white rounded-xl shadow p-6">
             {{-- Profile Header --}}
             <div class="flex flex-col items-center text-center mb-6">
-                <img src="{{asset("/storage/".Auth::user()->image) }}" alt="Profile Photo"
+                <img src="{{Auth::user()->image ?asset("/storage/".Auth::user()->image):asset('/storage/Images/default.jpg') }}" alt="Profile Photo"
                      class="w-40 h-40 rounded-full mb-3 object-cover">
                 <h2 class="text-xl font-semibold text-gray-800">{{ Auth::user()->name }}</h2>
                 <p class="text-gray-500 text-sm">{{ Auth::user()->email }}</p>

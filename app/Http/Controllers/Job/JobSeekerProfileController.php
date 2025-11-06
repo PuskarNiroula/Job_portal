@@ -19,7 +19,7 @@ class JobSeekerProfileController extends Controller
     public function edit(Request $request){
         $valid = Validator::make($request->all(), [
             'name' => 'required|string',
-            'phone' => 'digits_between:8,15||nullable', // ✅ good for phone numbers
+            'phone' => 'digits_between:8,15|nullable', // ✅ good for phone numbers
             'address' => 'string|nullable',   // add nullable, otherwise empty string may fail
             'qualification' => 'string|nullable',
             'experience' => 'string|nullable',
@@ -43,8 +43,6 @@ class JobSeekerProfileController extends Controller
             $user->image = $path;
         }
         $user->save();
-
-
 
         $profile = JobSeekerProfile::where('user_id', Auth::id())->first();
         $path=null;
@@ -80,7 +78,10 @@ class JobSeekerProfileController extends Controller
             return redirect()->route('dashboard');
         }
         public function view(){
-        $profile=JobSeekerProfile::where('user_id',Auth::id())->first();
+//        $profile=JobSeekerProfile::where('user_id',Auth::id())->first();
+            $profile = JobSeekerProfile::with(['user:id,name,email,phone,image'])
+                        ->where('user_id', Auth::id())
+                        ->first();
         return view('job.view_profile',compact('profile'));
         }
 

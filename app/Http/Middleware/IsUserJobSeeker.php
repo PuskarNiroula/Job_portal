@@ -20,6 +20,11 @@ class IsUserJobSeeker
         if($user->role=="job"){
             return $next($request);
         }
-        return response()->json(['message'=>'You are not Job Seeker'],403);
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'You are not Job Seeker'], 403);
+        }
+
+        // Redirect to login or error page for non-JSON requests
+        return redirect()->route('login')->withErrors(['message' => 'You are not Job Seeker']);
     }
 }

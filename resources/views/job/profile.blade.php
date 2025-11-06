@@ -29,7 +29,7 @@
                                  src="{{ !empty(Auth::user()->image) ? asset('storage/' . Auth::user()->image) : asset('images/default-avatar.png') }}"
                                  class="w-32 h-32 rounded-full object-cover border-4 border-gray-200 shadow-sm hover:opacity-80 transition"
                                  alt="Profile Photo">
-                            <input type="file" name="image" id="image" class="hidden" accept="image/*" onchange="previewImage(event)">
+                            <input type="file" name="image" id="image" class="hidden" accept="image/*">
                         </label>
                         <p class="text-sm text-gray-500 mt-2">Click image to change</p>
                         @error('image')
@@ -104,18 +104,4 @@
 
         </div>
     </div>
-    <script>
-            function previewImage(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('preview');
-
-            if (file) {
-            const reader = new FileReader();
-            reader.onload = e => {
-            preview.src = e.target.result;
-        };
-            reader.readAsDataURL(file);
-        }
-        }
-    </script>
 @endsection
