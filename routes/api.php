@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
    Route::middleware(IsUserEmployer::class)->group(function () {
    });
 });
-Route::middleware(['auth:sanctum',IsUserEmployer::class])->group(function () {
+Route::middleware(['auth:sanctum',IsUserAdmin::class])->group(function () {
     Route::controller(TestApiController::class)->group(function () {
         Route::get("/test",'index')->name('test.index');
     });

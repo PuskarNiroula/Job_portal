@@ -51,7 +51,7 @@ class AuthenticatedSessionController extends Controller
         if(Auth::user()->role=="admin") {
             return redirect("/admin");
         }else if(Auth::user()->role=="job"){
-            return view('/jobseeker');
+            return redirect('/jobseeker');
         }else{
             return redirect("/employer");
         }
