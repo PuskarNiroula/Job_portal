@@ -12,7 +12,7 @@ class JobApplication extends Model
     public $timestamps=false;
 
     public function job(){
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(Job::class,'post_id','job_id');
     }
     public function user(){
         return $this->belongsTo(User::class);
