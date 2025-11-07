@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Emp;
 
 use App\Http\Controllers\Controller;
 use App\Models\Job;
+use App\Models\JobApplication;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +31,7 @@ class JobController extends Controller{
              return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        Job::create([
+        Job::class->create([
             'title' => $request->title,
             'description' => $request->description==null?"hello worold":$request->description,
             'salary' => $request->salary,
@@ -118,6 +120,44 @@ class JobController extends Controller{
             return response()->json("Tumse na ho payega");
         }
         return redirect()->route('emp.index');
+    }
+
+    public function approveApplication($id){
+        $myId=Auth::id();
+        $applicant=JobApplication::find($id);
+        if($applicant==null){
+            return redirect()->route('emp.index')->withErrors("The job you want to update does not exist");
+        }
+        $jobOwnerId=$applicant->job->user_id;
+        if($jobOwnerId!=$myId){
+            return redirect()->route('emp.index')->withErrors("You are not authorized approve this application");
+        }
+        $update=$applicant->update([
+            'status' => "accepted",
+        ]);
+        if($update==false){
+           return redirect()->back()->withErrors("Something went wrong");
+        }
+       return redirect()->back()->with('success',"Application accepted successfully");
+    }
+
+    public function rejectApplication($id){
+        $myId=Auth::id();
+        $applicant=JobApplication::find($id);
+        if($applicant==null){
+            return redirect()->route('emp.index')->withErrors("The job you want to update does not exist");
+        }
+        $jobOwnerId=$applicant->job->user_id;
+        if($jobOwnerId!=$myId){
+            return redirect()->route('emp.index')->withErrors("You are not authorized reject this application");
+        }
+        $update=$applicant->update([
+            'status' => "rejected",
+        ]);
+        if($update==false){
+            return redirect()->back()->withErrors("Something went wrong");
+        }
+        return redirect()->back()->with('success',"Application rejected successfully");
     }
 
 

@@ -87,6 +87,8 @@
                 <input type="hidden" name="_method" value="DELETE">
                 <button type="submit" class="bg-red-500 text-white rounded-lg font-semibold px-5 py-2 hover:bg-red-600 transition">Delete</button>
             </form>
+            <a  class="inline-block bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+ href="/employer/view_application/${job.job_id}"> View Applications </a>
 </td>
                     `;
                     tbody.appendChild(tr);

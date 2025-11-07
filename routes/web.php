@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::controller(EmpController::class)->group(callback: function () {
             Route::get('/employer', 'index')->name('emp.index');
             Route::get('/employer/post_job', 'postJob')->name('emp.create');
-
+            Route::get("/employer/view_application/{id}",'viewApplication')->name('emp.viewApplication');
         });
         Route::controller(JobController::class)->group( function () {
             Route::post('/employer/store', 'store')->name('emp.store');
@@ -44,6 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/employer/getJobs', 'getJobs')->name('emp.getJobs');
             Route::get('/employer/edit_job/{id}', 'edit')->name('emp.edit');
             Route::put('/employer/update_job/{id}', 'update')->name('emp.update');
+            Route::get('/employer/approve/{id}', 'approveApplication')->name('emp.approve');
+            Route::get('/employer/reject/{id}', 'rejectApplication')->name('emp.reject');
+
         });
     });
 

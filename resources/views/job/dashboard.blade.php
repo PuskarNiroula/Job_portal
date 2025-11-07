@@ -7,8 +7,6 @@
     <h1 class="text-2xl font-semibold mb-6">Hello, Job Seeker 👋</h1>
 
         <div id="job-feed" class="space-y-6">
-
-
     </div>
 
     <div id="loading" class="text-center text-gray-500 py-4">Loading jobs...</div>
