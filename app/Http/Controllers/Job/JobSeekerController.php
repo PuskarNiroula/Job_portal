@@ -2,10 +2,12 @@
 namespace App\Http\Controllers\Job;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\JobService;
 use App\Models\Job;
 use App\Models\JobSeekerProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function Laravel\Prompts\search;
 
 class JobSeekerController extends Controller {
 
@@ -28,6 +30,12 @@ class JobSeekerController extends Controller {
             ]));
         }
         return view('job.profile',compact('profile'));
+    }
+    public function search(Request $request){
+       $searchTerm=(string) $request->query('search');
+       $service=new JobService();
+       $jobs=$service->search($searchTerm);
+       return response()->json($jobs);
     }
 
 }

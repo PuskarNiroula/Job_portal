@@ -25,10 +25,11 @@ class EmpController extends Controller {
         return view('emp.post_job');
     }
     public function viewApplication($id){
+        $job =Job::class->find($id);
+        if($job==null || $job->user->id!==Auth::id()){
+            return redirect()->route("dashboard")->with('error','Unauthorized');
+        }
         $applicants = $this->jobApplicationService->getJobApplicationsByPostId($id);
-        if($applicants)
-            if(Auth::id()!=$applicants[0]->job->user_id)
-                return redirect()->route("dashboard")->with('error','Unauthorized');
 
         return view('emp.view_application',compact('applicants'));
     }
