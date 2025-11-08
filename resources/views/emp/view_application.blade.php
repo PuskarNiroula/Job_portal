@@ -16,6 +16,7 @@
                 </tr>
                 </thead>
                 <tbody id="jobs-body">
+                @if($applicants!=null)
                 @foreach($applicants as $applicant)
                     @php
                         $exps=explode(',',$applicant->user->jobSeekerProfile->experience)
@@ -54,7 +55,7 @@
                                 Reject
                             </a>
 
-                            <a class="inline-block bg-purple-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-purple-600 transition" href="">
+                            <a class="inline-block bg-purple-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-purple-600 transition" href="/storage/{{ $applicant->user->jobSeekerProfile->cv }}" download>
                                 Download CV
                             </a>
                         </td>
@@ -62,6 +63,11 @@
 
                     @endif
                 @endforeach
+                @else
+                <tr>
+                    <td colspan="5" class="text-center">No Job Applications</td>
+                </tr>
+                @endif
 
                 </tbody>
             </table>

@@ -55,6 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/jobseeker', 'index')->name('jobseeker.index');
             Route::get('/jobseeker/getJobs', 'getJobs')->name('jobseeker.getJobs');
             Route::get('/jobseeker/edit', 'completeProfile')->name('jobseeker.edit');
+            Route::get('/jobseeker/search', 'search')->name('jobs.search');
         });
         Route::controller(JobSeekerProfileController::class)->group(function(){
             Route::post('/jobseeker/store', 'edit')->name('jobseeker.store');

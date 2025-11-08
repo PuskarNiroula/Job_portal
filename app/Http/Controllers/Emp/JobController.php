@@ -2,15 +2,16 @@
 namespace App\Http\Controllers\Emp;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\JobApplicationService;
 use App\Models\Job;
 use App\Models\JobApplication;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
 class JobController extends Controller{
+
 
 
     public function store(Request $request)
@@ -55,18 +56,10 @@ class JobController extends Controller{
 
     public function getJobs(Request $request)
     {
-        $user = Auth::user();
 
-        if (!$user) {
-            return response()->json([
-                'message' => 'Unauthorized',
-            ], 401);
-        }
-
-        $perPage = 10; // number of jobs per page
+        $perPage = 10;
         $page = $request->query('page', 1);
-
-        $jobs = $user->availableJobs()->paginate($perPage, ['*'], 'page', $page);
+        $jobs = Auth::user()->availableJobs()->paginate($perPage, ['*'], 'page', $page);
 
         return response()->json([
             'data' => $jobs->items(),
